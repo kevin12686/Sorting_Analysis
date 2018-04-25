@@ -51,8 +51,25 @@ def insertion_sort(num_list):
 
 @time_analysis
 def quick_sort(num_list):
-    num_len = len(num_list)
-    pass
+    def quick(begin, end, array):
+        if begin < end:
+            i = begin + 1
+            j = end
+            while True:
+                while i < end and array[begin] > array[i]:
+                    i += 1
+                while j > 0 and array[begin] < array[j]:
+                    j -= 1
+                if i < j:
+                    array[i], array[j] = array[j], array[i]
+                else:
+                    array[begin], array[j] = array[j], array[begin]
+                    break
+            quick(begin, j - 1, array)
+            quick(j + 1, end, array)
+
+    quick(begin=0, end=len(num_list) - 1, array=num_list)
+    return num_list
 
 
 @time_analysis
@@ -67,3 +84,5 @@ if __name__ == '__main__':
     a = bubble_sort(copy.deepcopy(r))
     b = selection_sort(copy.deepcopy(r))
     c = insertion_sort(copy.deepcopy(r))
+    d = quick_sort(copy.deepcopy(r))
+    print('Sorted Correct: {}'.format(a == b == c == d == list(range(10000))))
