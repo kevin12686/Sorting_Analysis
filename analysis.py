@@ -15,25 +15,13 @@ def time_analysis(func):
     return do_func
 
 
-def generate_random_list(size):
-    random_list = list(range(size))
-    for i in range(size):
-        r = random.randrange(size)
-        temp = random_list[i]
-        random_list[i] = random_list[r]
-        random_list[r] = temp
-    return list(range(size)), random_list
-
-
 @time_analysis
 def bubble_sort(num_list):
     num_len = len(num_list)
     for i in range(num_len - 1):
         for j in range(num_len - i - 1):
             if num_list[j] > num_list[j + 1]:
-                temp = num_list[j]
-                num_list[j] = num_list[j + 1]
-                num_list[j + 1] = temp
+                num_list[j], num_list[j + 1] = num_list[j + 1], num_list[j]
     return num_list
 
 
@@ -45,9 +33,7 @@ def selection_sort(num_list):
         for j in range(i + 1, num_len):
             if num_list[j] < num_list[min_idx]:
                 min_idx = j
-        temp = num_list[i]
-        num_list[i] = num_list[min_idx]
-        num_list[min_idx] = temp
+        num_list[i], num_list[min_idx] = num_list[min_idx], num_list[i]
     return num_list
 
 
@@ -76,8 +62,8 @@ def heap_sort(num_list):
 
 
 if __name__ == '__main__':
-    s, r = generate_random_list(300000)
+    r = list(range(10000))
+    random.shuffle(r)
     a = bubble_sort(copy.deepcopy(r))
     b = selection_sort(copy.deepcopy(r))
     c = insertion_sort(copy.deepcopy(r))
-    print(s == a == b == c)
