@@ -74,15 +74,45 @@ def quick_sort(num_list):
 
 @time_analysis
 def heap_sort(num_list):
-    num_len = len(num_list)
-    pass
+    def construct(node, node_num, size, num_list):
+        while node < node_num:
+            left = (node << 1) + 1
+            right = (node << 1) + 2
+            if right < size:
+                if num_list[left] > num_list[right]:
+                    MAX = left
+                else:
+                    MAX = right
+            else:
+                MAX = left
+            if num_list[node] < num_list[MAX]:
+                num_list[node], num_list[MAX] = num_list[MAX], num_list[node]
+                node = MAX
+            else:
+                break
+
+    size = len(num_list)
+    node_num = size >> 1
+    for i in range(node_num - 1, -1, -1):
+        construct(i, node_num, size, num_list)
+    while size > 1:
+        num_list[0], num_list[size - 1] = num_list[size - 1], num_list[0]
+        size -= 1
+        node_num = size >> 1
+        construct(0, node_num, size, num_list)
+    return num_list
 
 
 if __name__ == '__main__':
-    r = list(range(10000))
+    N = 100000
+    print('N:{}'.format(N))
+
+    r = list(range(N))
     random.shuffle(r)
+
     a = bubble_sort(copy.deepcopy(r))
     b = selection_sort(copy.deepcopy(r))
     c = insertion_sort(copy.deepcopy(r))
     d = quick_sort(copy.deepcopy(r))
-    print('Sorted Correct: {}'.format(a == b == c == d == list(range(10000))))
+    e = heap_sort(copy.deepcopy(r))
+    print('Sorted Correct: {}'.format(a == b == c == d == e == list(range(N))))
