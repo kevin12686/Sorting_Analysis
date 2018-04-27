@@ -1,14 +1,14 @@
 import random
 import copy
-import timeit
+import time
 
 
 def time_analysis(func):
     def do_func(*args, **kwargs):
         print('[INFO] \'{}\' analysis started.'.format(func.__name__))
-        start_time = timeit.default_timer()
+        start_time = time.clock()
         result = func(*args, **kwargs)
-        end_time = timeit.default_timer()
+        end_time = time.clock()
         print('[INFO] \'{}\' took {} seconds.'.format(func.__name__, end_time - start_time))
         return result
 
@@ -104,7 +104,7 @@ def heap_sort(num_list):
 
 
 if __name__ == '__main__':
-    N = 100000
+    N = 50000
     print('N:{}'.format(N))
 
     r = list(range(N))
