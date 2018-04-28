@@ -1,6 +1,9 @@
+from record_collector import Collector
 import random
 import copy
 import time
+
+record = Collector()
 
 
 def time_analysis(func):
@@ -9,7 +12,9 @@ def time_analysis(func):
         start_time = time.clock()
         result = func(*args, **kwargs)
         end_time = time.clock()
-        print('[INFO] \'{}\' took {} seconds.'.format(func.__name__, end_time - start_time))
+        total_time = end_time - start_time
+        print('[INFO] \'{}\' took {} seconds.'.format(func.__name__, total_time))
+        record.new_record(func.__name__, len(result), total_time)
         return result
 
     return do_func
@@ -104,7 +109,7 @@ def heap_sort(num_list):
 
 
 if __name__ == '__main__':
-    N = 50000
+    N = 1000
     print('N:{}'.format(N))
 
     r = list(range(N))
@@ -116,3 +121,5 @@ if __name__ == '__main__':
     d = quick_sort(copy.deepcopy(r))
     e = heap_sort(copy.deepcopy(r))
     print('Sorted Correct: {}'.format(a == b == c == d == e == list(range(N))))
+
+    record.output_report()
