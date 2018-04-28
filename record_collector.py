@@ -1,6 +1,5 @@
-from multiprocessing import Lock
-from io import StringIO
 import matplotlib.pyplot as plt
+import pandas as pd
 import numpy as np
 
 
@@ -8,11 +7,9 @@ class Collector(object):
 
     def __init__(self):
         super(Collector, self).__init__()
-        self.record_lock = Lock()
         self.record = dict()
 
     def new_record(self, sort, n, t):
-        self.record_lock.acquire()
         try:
             self.record[n]
         except KeyError:
@@ -22,10 +19,8 @@ class Collector(object):
         except KeyError:
             temp = self.record[n][sort] = list()
         temp.append(t)
-        self.record_lock.release()
 
     def output_report(self):
-        # csv = StringIO()
         plt.style.use('ggplot')
         data = dict()
         for each_n, each_dict in self.record.items():
@@ -55,26 +50,18 @@ class Collector(object):
             plt.figure(idx)
             plt.xlabel('# of elements (1000\'s)')
             plt.ylabel('Time (seconds)')
-            plt.title('{} Figure'.format(fig_name))
+            plt.title('{} Figure'.format(fig_name).upper())
             plt.savefig(fig_name)
             plt.close()
 
         plt.figure(0)
         plt.xlabel('# of elements (1000\'s)')
         plt.ylabel('Time (seconds)')
-        plt.title('Sorting Performance Figure')
+        plt.title('Sorting Performance Figure'.upper())
         plt.legend()
         plt.savefig('Sorting Performance Figure')
         plt.close()
 
 
 if __name__ == '__main__':
-    plt.style.use('ggplot')
-    plt.plot([50000, 100000, 150000, 200000, 250000, 300000], [1, 3, 4, 5, 2, 1], '-o', color=np.random.rand(3),
-             label='test1')
-    plt.plot([50000, 100000, 150000, 200000, 250000, 300000], [5, 5, 5, 5, 5, 5], '-o', color=np.random.rand(3),
-             label='test2')
-    plt.xlabel('haha')
-    plt.legend()
-    # plt.savefig('a.png')
-    plt.show()
+    pass

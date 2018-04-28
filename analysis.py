@@ -1,9 +1,13 @@
+from multiprocessing.managers import BaseManager
 from record_collector import Collector
 import random
 import copy
 import time
 
-record = Collector()
+BaseManager.register('Collector', Collector)
+manager = BaseManager()
+manager.start()
+record = manager.Collector()
 
 
 def time_analysis(func):

@@ -23,7 +23,9 @@ def heap_sort_parallel(*args, **kwargs):
 
 
 if __name__ == '__main__':
-    N = 50000
+
+
+    N = 1000
     print('N:{}'.format(N))
 
     r = list(range(N))
@@ -39,3 +41,5 @@ if __name__ == '__main__':
     pool.close()
     pool.join()
     print('Sorted Correct: {}'.format(a.get() == b.get() == c.get() == d.get() == e.get() == list(range(N))))
+
+    record.output_report()
