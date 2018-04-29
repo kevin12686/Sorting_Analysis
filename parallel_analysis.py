@@ -23,70 +23,22 @@ def heap_sort_parallel(*args, **kwargs):
 
 
 if __name__ == '__main__':
-    pool = Pool(processes=3)
-
-    N = 5000
-    print('N:{}'.format(N))
-    r = list(range(N))
-    random.shuffle(r)
-    a = pool.apply_async(bubble_sort_parallel, (copy.deepcopy(r),))
-    b = pool.apply_async(selection_sort_parallel, (copy.deepcopy(r),))
-    c = pool.apply_async(insertion_sort_parallel, (copy.deepcopy(r),))
-    d = pool.apply_async(quick_sort_parallel, (copy.deepcopy(r),))
-    e = pool.apply_async(heap_sort_parallel, (copy.deepcopy(r),))
-
-    N = 10000
-    print('N:{}'.format(N))
-    r = list(range(N))
-    random.shuffle(r)
-    a = pool.apply_async(bubble_sort_parallel, (copy.deepcopy(r),))
-    b = pool.apply_async(selection_sort_parallel, (copy.deepcopy(r),))
-    c = pool.apply_async(insertion_sort_parallel, (copy.deepcopy(r),))
-    d = pool.apply_async(quick_sort_parallel, (copy.deepcopy(r),))
-    e = pool.apply_async(heap_sort_parallel, (copy.deepcopy(r),))
-
-    N = 15000
-    print('N:{}'.format(N))
-    r = list(range(N))
-    random.shuffle(r)
-    a = pool.apply_async(bubble_sort_parallel, (copy.deepcopy(r),))
-    b = pool.apply_async(selection_sort_parallel, (copy.deepcopy(r),))
-    c = pool.apply_async(insertion_sort_parallel, (copy.deepcopy(r),))
-    d = pool.apply_async(quick_sort_parallel, (copy.deepcopy(r),))
-    e = pool.apply_async(heap_sort_parallel, (copy.deepcopy(r),))
-
-    N = 20000
-    print('N:{}'.format(N))
-    r = list(range(N))
-    random.shuffle(r)
-    a = pool.apply_async(bubble_sort_parallel, (copy.deepcopy(r),))
-    b = pool.apply_async(selection_sort_parallel, (copy.deepcopy(r),))
-    c = pool.apply_async(insertion_sort_parallel, (copy.deepcopy(r),))
-    d = pool.apply_async(quick_sort_parallel, (copy.deepcopy(r),))
-    e = pool.apply_async(heap_sort_parallel, (copy.deepcopy(r),))
-
-    N = 25000
-    print('N:{}'.format(N))
-    r = list(range(N))
-    random.shuffle(r)
-    a = pool.apply_async(bubble_sort_parallel, (copy.deepcopy(r),))
-    b = pool.apply_async(selection_sort_parallel, (copy.deepcopy(r),))
-    c = pool.apply_async(insertion_sort_parallel, (copy.deepcopy(r),))
-    d = pool.apply_async(quick_sort_parallel, (copy.deepcopy(r),))
-    e = pool.apply_async(heap_sort_parallel, (copy.deepcopy(r),))
-
-    N = 30000
-    print('N:{}'.format(N))
-    r = list(range(N))
-    random.shuffle(r)
-    a = pool.apply_async(bubble_sort_parallel, (copy.deepcopy(r),))
-    b = pool.apply_async(selection_sort_parallel, (copy.deepcopy(r),))
-    c = pool.apply_async(insertion_sort_parallel, (copy.deepcopy(r),))
-    d = pool.apply_async(quick_sort_parallel, (copy.deepcopy(r),))
-    e = pool.apply_async(heap_sort_parallel, (copy.deepcopy(r),))
-
+    # Python 2
+    # N_list = [int(n) for n in input('Number of Elements (Separate with comma): ')]
+    # Python 3
+    # N_list = [n for n in input('Number of Elements (Separate with blank): ').replace(' ', '').split(',')]
+    N_list = [1000, 2000, 3000, 4000, 5000]
+    N_list.sort(reverse=True)
+    pool = Pool(processes=5)
+    for each_N in N_list:
+        test_data = list(range(each_N))
+        for idx in range(times):
+            random.shuffle(test_data)
+            a = pool.apply_async(bubble_sort_parallel, (copy.deepcopy(test_data),))
+            b = pool.apply_async(selection_sort_parallel, (copy.deepcopy(test_data),))
+            c = pool.apply_async(insertion_sort_parallel, (copy.deepcopy(test_data),))
+            d = pool.apply_async(quick_sort_parallel, (copy.deepcopy(test_data),))
+            e = pool.apply_async(heap_sort_parallel, (copy.deepcopy(test_data),))
     pool.close()
     pool.join()
-
-    # print('Sorted Correct: {}'.format(a.get() == b.get() == c.get() == d.get() == e.get() == list(range(N))))
     record.output_report()

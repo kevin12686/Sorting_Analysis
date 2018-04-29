@@ -8,6 +8,7 @@ BaseManager.register('Collector', Collector)
 manager = BaseManager()
 manager.start()
 record = manager.Collector()
+times = 25
 
 
 def time_analysis(func):
@@ -113,6 +114,24 @@ def heap_sort(num_list):
 
 
 if __name__ == '__main__':
+    # Python 2
+    # N_list = [int(n) for n in input('Number of Elements (Separate with comma): ')]
+    # Python 3
+    # N_list = [n for n in input('Number of Elements (Separate with blank): ').replace(' ', '').split(',')]
+    N_list = [1000, 2000, 3000, 4000, 5000]
+    N_list.sort(reverse=True)
+    for each_N in N_list:
+        test_data = list(range(each_N))
+        for idx in range(times):
+            random.shuffle(test_data)
+            a = bubble_sort(copy.deepcopy(test_data))
+            b = selection_sort(copy.deepcopy(test_data))
+            c = insertion_sort(copy.deepcopy(test_data))
+            d = quick_sort(copy.deepcopy(test_data))
+            e = heap_sort(copy.deepcopy(test_data))
+    record.output_report()
+
+
     N = 10000
     print('N:{}'.format(N))
 
