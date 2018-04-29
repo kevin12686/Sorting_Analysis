@@ -12,12 +12,12 @@ record = manager.Collector()
 
 def time_analysis(func):
     def do_func(*args, **kwargs):
-        print('[INFO] \'{}\' analysis started.'.format(func.__name__))
+        print('[INFO] \'{}\' analysis started (N={}).'.format(func.__name__, len(args[0])))
         start_time = time.clock()
         result = func(*args, **kwargs)
         end_time = time.clock()
         total_time = end_time - start_time
-        print('[INFO] \'{}\' took {} seconds.'.format(func.__name__, total_time))
+        print('[INFO] \'{}\' took {} seconds (N={}).'.format(func.__name__, total_time, len(args[0])))
         record.new_record(func.__name__, len(result), total_time)
         return result
 
@@ -113,7 +113,7 @@ def heap_sort(num_list):
 
 
 if __name__ == '__main__':
-    N = 1000
+    N = 10000
     print('N:{}'.format(N))
 
     r = list(range(N))

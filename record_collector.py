@@ -29,7 +29,7 @@ class Collector(object):
                     temp = data[sort]
                 except KeyError:
                     temp = data[sort] = list()
-                temp.append((round(each_n / 1000), round(sum(tlist) / len(tlist))))
+                temp.append((round(each_n / 1000), round(sum(tlist) / len(tlist), 3)))
 
         fig_count = len(data) + 1
         fig_idx = 1
