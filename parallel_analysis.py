@@ -27,7 +27,7 @@ if __name__ == '__main__':
     # N_list = [int(n) for n in input('Number of Elements (Separate with comma): ')]
     # Python 3
     # N_list = [n for n in input('Number of Elements (Separate with blank): ').replace(' ', '').split(',')]
-    N_list = [1000, 2000, 3000, 4000, 5000]
+    N_list = [50000, 100000, 150000, 200000, 250000, 300000]
     N_list.sort(reverse=True)
     pool = Pool(processes=5)
     for each_N in N_list:
