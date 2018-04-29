@@ -22,21 +22,24 @@ class Collector(object):
 
     def output_report(self):
         plt.style.use('ggplot')
-        data = dict()
-        for each_n, each_dict in self.record.items():
-            for sort, tlist in each_dict.items():
-                try:
-                    temp = data[sort]
-                except KeyError:
-                    temp = data[sort] = list()
-                temp.append((round(each_n / 1000), round(sum(tlist) / len(tlist), 3)))
+        figure_data = dict()
+        with pd.ExcelWriter('record.xlsx') as writer:
+            for each_n, each_dict in self.record.items():
+                for sort, tlist in each_dict.items():
+                    try:
+                        temp = figure_data[sort]
+                    except KeyError:
+                        temp = figure_data[sort] = list()
+                    temp.append((round(each_n / 1000), round(sum(tlist) / len(tlist), 3)))
+                    df = pd.DataFrame(data=each_dict, columns=sorted(each_dict.keys()))
+                    df.to_excel(writer, 'N = %d' % each_n, index=False)
 
-        fig_count = len(data) + 1
+        fig_count = len(figure_data) + 1
         fig_idx = 1
         fig_seq = ['all']
         fig_color = [np.random.rand(3) for a in range(fig_count - 1)]
 
-        for each_sort, each_data in data.items():
+        for each_sort, each_data in figure_data.items():
             temp = np.asarray(each_data).swapaxes(0, 1)
             plt.figure(0)
             plt.plot(temp[0], temp[1], '-o', color=fig_color[fig_idx - 1], label=each_sort.replace('_', ' '))
