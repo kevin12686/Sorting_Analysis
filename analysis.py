@@ -131,7 +131,6 @@ if __name__ == '__main__':
             e = heap_sort(copy.deepcopy(test_data))
     record.output_report()
 
-
     N = 10000
     print('N:{}'.format(N))
 
