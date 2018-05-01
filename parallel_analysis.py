@@ -44,13 +44,13 @@ if __name__ == '__main__':
     N_list = [50000, 100000, 150000, 200000, 250000, 300000]
     N_list.sort(reverse=True)
     pool = Pool(processes=5)
+    status.value = False
     for each_N in N_list:
         test_data = list(range(each_N))
         for idx in range(times):
             random.shuffle(test_data)
             random_list.append(copy.deepcopy(test_data))
             count += 1
-            status.value = False
 
             pool.apply_async(bubble_sort_parallel, (random_list[count],))
             pool.apply_async(selection_sort_parallel, (random_list[count],))
@@ -58,7 +58,7 @@ if __name__ == '__main__':
             pool.apply_async(quick_sort_parallel, (random_list[count],))
             pool.apply_async(heap_sort_parallel, (random_list[count],))
 
-            status.value = True
+    status.value = True
     pool.close()
     pool.join()
     record.output_report()
