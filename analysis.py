@@ -8,7 +8,7 @@ BaseManager.register('Collector', Collector)
 manager = BaseManager()
 manager.start()
 record = manager.Collector()
-times = 1
+times = 25
 
 
 def time_analysis(func):
