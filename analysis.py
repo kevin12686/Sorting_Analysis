@@ -8,7 +8,7 @@ BaseManager.register('Collector', Collector)
 manager = BaseManager()
 manager.start()
 record = manager.Collector()
-times = 25
+times = 1
 
 
 def time_analysis(func):
@@ -124,24 +124,9 @@ if __name__ == '__main__':
         test_data = list(range(each_N))
         for idx in range(times):
             random.shuffle(test_data)
-            a = bubble_sort(copy.deepcopy(test_data))
-            b = selection_sort(copy.deepcopy(test_data))
-            c = insertion_sort(copy.deepcopy(test_data))
-            d = quick_sort(copy.deepcopy(test_data))
-            e = heap_sort(copy.deepcopy(test_data))
-    record.output_report()
-
-    N = 10000
-    print('N:{}'.format(N))
-
-    r = list(range(N))
-    random.shuffle(r)
-
-    a = bubble_sort(copy.deepcopy(r))
-    b = selection_sort(copy.deepcopy(r))
-    c = insertion_sort(copy.deepcopy(r))
-    d = quick_sort(copy.deepcopy(r))
-    e = heap_sort(copy.deepcopy(r))
-    print('Sorted Correct: {}'.format(a == b == c == d == e == list(range(N))))
-
+            bubble_sort(copy.deepcopy(test_data))
+            selection_sort(copy.deepcopy(test_data))
+            insertion_sort(copy.deepcopy(test_data))
+            quick_sort(copy.deepcopy(test_data))
+            heap_sort(copy.deepcopy(test_data))
     record.output_report()

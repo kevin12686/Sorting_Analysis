@@ -1,4 +1,4 @@
-from multiprocessing import Pool, Value
+from multiprocessing import Pool, Value, cpu_count
 from analysis import *
 
 status = Value('B', False)
@@ -43,7 +43,7 @@ if __name__ == '__main__':
     random_list = []
     N_list = [50000, 100000, 150000, 200000, 250000, 300000]
     N_list.sort(reverse=True)
-    pool = Pool(processes=5)
+    pool = Pool(processes=cpu_count())
     status.value = False
     for each_N in N_list:
         test_data = list(range(each_N))
