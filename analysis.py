@@ -1,5 +1,6 @@
 from multiprocessing.managers import BaseManager
 from record_collector import Collector
+from functools import wraps
 import random
 import copy
 import time
@@ -12,13 +13,14 @@ times = 25
 
 
 def time_analysis(func):
+    @wraps(func)
     def do_func(*args, **kwargs):
-        print('[INFO] \'{}\' analysis started (N={}).'.format(func.__name__, len(args[0])))
+        print('[INFO][START]  \'{}\' analysis started (N={}).'.format(func.__name__, len(args[0])))
         start_time = time.clock()
         result = func(*args, **kwargs)
         end_time = time.clock()
         total_time = end_time - start_time
-        print('[INFO] \'{}\' took {} seconds (N={}).'.format(func.__name__, total_time, len(args[0])))
+        print('[INFO][FINISH] \'{}\' took {} seconds (N={}).'.format(func.__name__, total_time, len(args[0])))
         record.new_record(func.__name__, len(result), total_time)
         return result
 
