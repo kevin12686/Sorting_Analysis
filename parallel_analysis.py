@@ -13,7 +13,7 @@ if __name__ == '__main__':
         test_data = list(range(each_N))
         for idx in range(times):
             random.shuffle(test_data)
-            random_list.append(test_data)
+            random_list.append(copy.deepcopy(test_data))
     pool = Pool()
     pool.map(heap_sort, random_list)
     pool.map(quick_sort, random_list)
