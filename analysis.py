@@ -15,12 +15,12 @@ times = 25
 def time_analysis(func):
     @wraps(func)
     def do_func(*args, **kwargs):
-        print('[INFO][START]  \'{}\' analysis started (N={}).'.format(func.__name__, len(args[0])))
+        print('[INFO] \'{}\' analysis started (N={}).'.format(func.__name__, len(args[0])))
         start_time = time.clock()
         result = func(*args, **kwargs)
         end_time = time.clock()
         total_time = end_time - start_time
-        print('[INFO][FINISH] \'{}\' took {} seconds (N={}).'.format(func.__name__, total_time, len(args[0])))
+        print('[INFO] \'{}\' took {} seconds (N={}).'.format(func.__name__, total_time, len(args[0])))
         record.new_record(func.__name__, len(result), total_time)
         return result
 
